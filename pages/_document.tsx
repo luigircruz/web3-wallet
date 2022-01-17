@@ -12,7 +12,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         </Head>
-        <body>
+        <body className="bg-gray-100">
           <Main />
           <NextScript />
         </body>
