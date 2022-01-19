@@ -1,7 +1,21 @@
+import { injected } from '@/components/wallet/connectors'
+import { useWeb3React } from '@web3-react/core'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
 const Home: NextPage = () => {
+  const { active, account, library, connector, activate, deactivate } = useWeb3React()
+
+  async function connect() {
+    await activate(injected)
+    console.log(account)
+  }
+
+  async function disconnect() {
+    deactivate()
+    console.log(account)
+  }
+
   return (
     <>
       <Head>
@@ -71,10 +85,25 @@ const Home: NextPage = () => {
             </div>
             <div className="mt-10">
               <button
+                onClick={connect}
                 type="submit"
                 className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Check Wallet Details
+              </button>
+              {active ? (
+                <span>
+                  Connected with <b>{account}</b>
+                </span>
+              ) : (
+                <span>Not Connected</span>
+              )}
+              <button
+                onClick={disconnect}
+                type="submit"
+                className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Disconnect
               </button>
             </div>
           </div>
